@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Capture Image and Insert in PowerPoint</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <link rel="stylesheet" type="text/css" href="styles.css"> <!-- Externe CSS-Datei -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h2>Capture Image from Camera</h2>
-  <video id="video" class="video" autoplay></video>
-  <button id="capture">Capture Photo</button>
-  <canvas id="canvas" class="canvas" style="display:none"></canvas>
+  <h2>Kamera Bild erfassen</h2>
+  <video id="video" width="640" height="480" autoplay></video>
+  <button id="capture">Foto erfassen</button>
+  <canvas id="canvas" width="640" height="480" style="display:none"></canvas>
 
-  <script src="script.js"></script> <!-- Externe JS-Datei -->
+  <script src="script.js"></script>
 </body>
 </html>
