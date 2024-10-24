@@ -27,19 +27,19 @@
         });
     }
 
-    // Kamera starten
-    startCamera();
+    // Office.onReady Initialisierung
+    Office.onReady(info => {
+      if (info.host === Office.HostType.PowerPoint) {
+        startCamera();  // Kamera starten, wenn das Add-in in PowerPoint geladen wird
+      }
+    });
 
     // Capture-Button-Event-Listener
     document.getElementById('capture').addEventListener('click', () => {
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
       const dataURL = canvas.toDataURL('image/png');
 
-      Office.onReady(info => {
-        if (info.host === Office.HostType.PowerPoint) {
-          insertImageInPowerPoint(dataURL);
-        }
-      });
+      insertImageInPowerPoint(dataURL);
     });
 
     // Funktion zum Einfügen des Bildes in PowerPoint
