@@ -15,14 +15,22 @@
     const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
 
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        video.srcObject = stream;
-      })
-      .catch(error => {
-        console.error('Error accessing camera: ', error);
-      });
+    // Funktion zum Zugriff auf die Kamera
+    function startCamera() {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          video.srcObject = stream;
+        })
+        .catch(error => {
+          console.error('Error accessing camera: ', error);
+          alert('Unable to access the camera. Please allow camera access.');
+        });
+    }
 
+    // Kamera starten
+    startCamera();
+
+    // Capture-Button-Event-Listener
     document.getElementById('capture').addEventListener('click', () => {
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
       const dataURL = canvas.toDataURL('image/png');
@@ -34,6 +42,7 @@
       });
     });
 
+    // Funktion zum Einfügen des Bildes in PowerPoint
     function insertImageInPowerPoint(imageBase64) {
       PowerPoint.run(async (context) => {
         const slide = context.presentation.slides.getActiveSlide();
@@ -41,6 +50,7 @@
         await context.sync();
       }).catch(error => {
         console.error("Error inserting image in PowerPoint: ", error);
+        alert("Failed to insert image in PowerPoint.");
       });
     }
   </script>
