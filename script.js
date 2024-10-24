@@ -24,7 +24,8 @@ function setupCamera() {
         })
         .catch(error => {
             console.error('Fehler beim Zugriff auf die Kamera: ', error);
-            alert("Fehler beim Zugriff auf die Kamera: " + error.message);
+            // Ersetze alert durch console.log
+            console.log("Fehler beim Zugriff auf die Kamera: " + error.message);
         });
 
     document.getElementById('capture').addEventListener('click', () => {
