@@ -15,42 +15,40 @@
     const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
 
-    // Funktion zum Zugriff auf die Kamera
-    function startCamera() {
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-          video.srcObject = stream;
-        })
-        .catch(error => {
-          console.error('Error accessing camera: ', error);
-          alert('Unable to access the camera. Please allow camera access.');
-        });
-    }
+    // Zugriff auf die Kamera anfordern
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        console.log('Kamera erfolgreich gestartet');
+        video.srcObject = stream;
+      })
+      .catch(error => {
+        console.error('Fehler beim Zugriff auf die Kamera: ', error);
+        alert('Fehler beim Zugriff auf die Kamera. Überprüfen Sie die Berechtigungen.');
+      });
 
-    // Office.onReady Initialisierung
-    Office.onReady(info => {
-      if (info.host === Office.HostType.PowerPoint) {
-        startCamera();  // Kamera starten, wenn das Add-in in PowerPoint geladen wird
-      }
-    });
-
-    // Capture-Button-Event-Listener
     document.getElementById('capture').addEventListener('click', () => {
+      console.log('Capture Photo Button clicked');
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
       const dataURL = canvas.toDataURL('image/png');
 
-      insertImageInPowerPoint(dataURL);
+      Office.onReady(info => {
+        if (info.host === Office.HostType.PowerPoint) {
+          console.log('PowerPoint ist bereit, Bild einzufügen');
+          insertImageInPowerPoint(dataURL);
+        } else {
+          console.error('Das Add-in wird nicht in PowerPoint ausgeführt.');
+        }
+      });
     });
 
-    // Funktion zum Einfügen des Bildes in PowerPoint
     function insertImageInPowerPoint(imageBase64) {
       PowerPoint.run(async (context) => {
         const slide = context.presentation.slides.getActiveSlide();
         slide.shapes.addImage(imageBase64, { left: 100, top: 100, width: 400, height: 300 });
         await context.sync();
+        console.log('Bild erfolgreich in PowerPoint eingefügt');
       }).catch(error => {
-        console.error("Error inserting image in PowerPoint: ", error);
-        alert("Failed to insert image in PowerPoint.");
+        console.error("Fehler beim Einfügen des Bildes in PowerPoint: ", error);
       });
     }
   </script>
