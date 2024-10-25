@@ -27,7 +27,7 @@
     </Requirements>
 
     <DefaultSettings>
-        <SourceLocation DefaultValue="robinhood1596.github.io/taskpane.html"/>
+        <SourceLocation DefaultValue="https://robinhood1596.github.io/taskpane.html"/>
     </DefaultSettings>
 
     <Permissions>ReadWriteDocument</Permissions>
