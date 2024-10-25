@@ -8,9 +8,9 @@
     <DefaultLocale>en-US</DefaultLocale>
     <DisplayName DefaultValue="PowerPoint Camera Add-in"/>
     <Description DefaultValue="An add-in to capture photos and insert them into slides."/>
-    <IconUrl DefaultValue="https://robinhood1596.github.io/assets/icon.png"/>
-    <HighResolutionIconUrl DefaultValue="https://robinhood1596.github.io/assets/icon@2x.png"/>
-    <SupportUrl DefaultValue="https://robinhood1596.github.io/support"/>
+    <IconUrl DefaultValue="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp"/>
+    <HighResolutionIconUrl DefaultValue="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp"/>
+    <SupportUrl DefaultValue="office.com"/>
 
     <AppDomains>
         <AppDomain>robinhood1596.github.io</AppDomain>
