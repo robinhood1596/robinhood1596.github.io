@@ -1,0 +1,2 @@
+Office.onReady((()=>{})),Office.actions.associate("action",(function(e){const i={type:Office.MailboxEnums.ItemNotificationMessageType.InformationalMessage,message:"Performed action.",icon:"Icon.80x80",persistent:!0};Office.context.mailbox&&Office.context.mailbox.item?Office.context.mailbox.item.notificationMessages.replaceAsync("ActionPerformanceNotification",i):console.error("Office.context.mailbox.item is undefined."),e.completed()}));
+//# sourceMappingURL=commands.js.map
