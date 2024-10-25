@@ -1,18 +1,89 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Capture Image and Insert in PowerPoint</title>
-  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture Image and Insert in PowerPoint</title>
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        video {
+            display: block;
+            margin: 0 auto;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-  <h2>Kamera Bild erfassen</h2>
-  <video id="video" width="640" height="480" autoplay></video>
-  <button id="capture">Foto erfassen</button>
-  <canvas id="canvas" width="640" height="480" style="display:none"></canvas>
+    <h2>Kamera Bild erfassen</h2>
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="capture">Foto erfassen</button>
+    <canvas id="canvas" width="640" height="480" style="display:none"></canvas>
 
-  <script src="script.js"></script>
+    <script>
+        let videoStream;
+
+        Office.onReady(info => {
+            if (info.host === Office.HostType.PowerPoint) {
+                console.log("Office ist bereit.");
+                setupCamera();
+            } else {
+                console.error("Nicht in PowerPoint.");
+            }
+        });
+
+        function setupCamera() {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+
+            console.log("Versuche, die Kamera zu aktivieren...");
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    console.log("Kamera erfolgreich aktiviert.");
+                    videoStream = stream;
+                    video.srcObject = stream;
+                })
+                .catch(error => {
+                    console.error('Fehler beim Zugriff auf die Kamera: ', error);
+                    console.log("Fehler beim Zugriff auf die Kamera: " + error.message);
+                });
+
+            document.getElementById('capture').addEventListener('click', () => {
+                console.log("Foto wird erfasst...");
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const dataURL = canvas.toDataURL('image/png');
+                console.log("BilddatenURL: ", dataURL);
+                insertImageInPowerPoint(dataURL);
+            });
+        }
+
+        function insertImageInPowerPoint(imageBase64) {
+            console.log("Versuche, Bild in PowerPoint einzufügen...");
+            PowerPoint.run(async (context) => {
+                const slide = context.presentation.slides.getActiveSlide();
+                slide.shapes.addImage(imageBase64, { left: 100, top: 100, width: 400, height: 300 });
+                await context.sync();
+                console.log("Bild erfolgreich in PowerPoint eingefügt.");
+            }).catch(error => {
+                console.error("Fehler beim Einfügen des Bildes in PowerPoint: ", error);
+            });
+        }
+    </script>
 </body>
 </html>
