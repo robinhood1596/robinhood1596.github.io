@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:type="TaskPaneApp">
+<OfficeApp 
+    xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+    xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+    xsi:type="TaskPaneApp">
     <Id>4f6c13a9-2f6a-4e2e-931d-d776289cd13d</Id>
     <Version>1.0.0.0</Version>
     <ProviderName>Schule</ProviderName>
@@ -31,4 +34,60 @@
     </DefaultSettings>
 
     <Permissions>ReadWriteDocument</Permissions>
+
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+        <Hosts>
+            <Host xsi:type="Presentation">
+                <DesktopFormFactor>
+                    <ExtensionPoint xsi:type="PrimaryCommandSurface">
+                        <CustomTab id="TabPowerPointCamera">
+                            <Group id="GroupPowerPointCamera">
+                                <Label resid="GroupLabel" />
+                                <Icon>
+                                    <bt:Image size="16" resid="Icon.16x16" />
+                                    <bt:Image size="32" resid="Icon.32x32" />
+                                    <bt:Image size="80" resid="Icon.80x80" />
+                                </Icon>
+                                <Control xsi:type="Button" id="TaskpaneButton">
+                                    <Label resid="TaskpaneButton.Label" />
+                                    <Supertip>
+                                        <Title resid="TaskpaneButton.Label" />
+                                        <Description resid="TaskpaneButton.Tooltip" />
+                                    </Supertip>
+                                    <Icon>
+                                        <bt:Image size="16" resid="Icon.16x16" />
+                                        <bt:Image size="32" resid="Icon.32x32" />
+                                        <bt:Image size="80" resid="Icon.80x80" />
+                                    </Icon>
+                                    <Action xsi:type="ShowTaskpane">
+                                        <TaskpaneId>ButtonId1</TaskpaneId>
+                                        <SourceLocation resid="Taskpane.Url" />
+                                    </Action>
+                                </Control>
+                            </Group>
+                            <Label resid="TabLabel" />
+                        </CustomTab>
+                    </ExtensionPoint>
+                </DesktopFormFactor>
+            </Host>
+        </Hosts>
+        <Resources>
+            <bt:Images>
+                <bt:Image id="Icon.16x16" DefaultValue="https://robinhood1596.github.io/assets/icon-16.png" />
+                <bt:Image id="Icon.32x32" DefaultValue="https://robinhood1596.github.io/assets/icon-32.png" />
+                <bt:Image id="Icon.80x80" DefaultValue="https://robinhood1596.github.io/assets/icon-80.png" />
+            </bt:Images>
+            <bt:Urls>
+                <bt:Url id="Taskpane.Url" DefaultValue="https://robinhood1596.github.io/taskpane.html" />
+            </bt:Urls>
+            <bt:ShortStrings>
+                <bt:String id="GroupLabel" DefaultValue="PowerPoint Camera" />
+                <bt:String id="TaskpaneButton.Label" DefaultValue="Open Camera" />
+                <bt:String id="TabLabel" DefaultValue="PowerPoint Camera" />
+            </bt:ShortStrings>
+            <bt:LongStrings>
+                <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to open the PowerPoint Camera Add-in" />
+            </bt:LongStrings>
+        </Resources>
+    </VersionOverrides>
 </OfficeApp>
